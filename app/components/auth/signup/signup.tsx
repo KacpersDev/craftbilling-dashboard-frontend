@@ -6,7 +6,7 @@ import Logo from "@/app/assets/images/craftbilling-logo.png";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const SignUp = () => {
 
@@ -22,11 +22,46 @@ const SignUp = () => {
     const [country, setCountry] = useState("");
     const [remember, setRemember] = useState(false);
 
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/auth/signup", {
+                method: 'POST',
+                body: JSON.stringify({
+                    "full_name": fullName,
+                    email,
+                    password,
+                    address,
+                    city,
+                    state,
+                    "post_code": postcode,
+                    country,
+                    remember
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+            const status = response.status;
+
+            if (status === 200) {
+                return;
+            }
+        } catch (err) {
+            console.error(err);
+        }
+
+        
+    }
+
     return (
         <div className="bg-primary w-full max-w-[500px] p-5 h-fit rounded-xl ml-auto mr-auto mt-auto mb-auto">
             <Image src={Logo} alt="logo" className="w-[128px] ml-auto mr-auto"/>
             <p className="text-center text-white text-[25px] font-bold">Create an account</p>
-            <form className="flex flex-col text-white mt-[15px]">
+            <form className="flex flex-col text-white mt-[15px]" onSubmit={handleSubmit}>
                 <AuthLabel htmlFor="fullname" label="Full Name" />
                 <AuthInput id="fullname" type="text" required={true} onChange={(e) => setFullName(e.target.value)} autoComplete="name"/>
                 <AuthLabel htmlFor="email" label="Email Address"/>
