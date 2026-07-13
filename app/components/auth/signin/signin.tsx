@@ -40,7 +40,7 @@ const SignIn = () => {
     }
     
     return (
-        <div className="bg-primary w-full max-w-[500px] h-fit p-5 rounded-xl ml-auto mr-auto mt-[150px] mx-4 sm:mx-auto">
+        <div className="bg-primary w-full max-w-[500px] h-fit p-5 rounded-xl ml-auto mr-auto mt-[150px] mx-4 sm:mx-auto mt-auto mb-auto">
             <Image src={Logo} alt="logo" className="w-[128px] ml-auto mr-auto"/>
             <p className="text-center text-white text-[25px] font-bold">Welcome Back!</p>
             <form className="flex flex-col text-white mt-[15px]" onSubmit={handleSubmit}>
