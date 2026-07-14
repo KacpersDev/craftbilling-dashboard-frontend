@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { Resend } from "resend";
 
 const SignUp = () => {
 
@@ -48,13 +49,22 @@ const SignUp = () => {
             const status = response.status;
 
             if (status === 200) {
-                return;
+                fetch("/api/email", {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: email,
+                        name: name,
+                    })
+                }).then(response => response.json().then(data => {
+                    console.log(data);
+                }));
+
+                router.push('/auth/email');
+                return
             }
         } catch (err) {
             console.error(err);
         }
-
-        
     }
 
     return (
