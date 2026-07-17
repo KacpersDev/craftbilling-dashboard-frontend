@@ -13,5 +13,5 @@ export async function POST(req: Request) {
         html: 'This is a test email.'
     })
 
-    return NextResponse.json({message: "sent"});
+    return NextResponse.json({}); 
 }
