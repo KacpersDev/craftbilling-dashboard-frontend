@@ -54,10 +54,11 @@ const SignUp = () => {
                     body: JSON.stringify({
                         email: email,
                         name: name,
-                    })
-                }).then(response => response.json().then(data => {
-                    console.log(data);
-                }));
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
                 router.push('/auth/email');
                 return
